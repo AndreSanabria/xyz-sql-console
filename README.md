@@ -94,6 +94,12 @@ Visit `http://localhost:3000` in your browser.
 
 ---
 
+## 🎥 Demo
+
+![Demo of SQL Console](screenshots/demo.gif)
+
+---
+
 ## 🧾 Documentation Included
 
 - `XYZ.sql`: Full database schema with PK/FK constraints
@@ -116,6 +122,8 @@ Visit `http://localhost:3000` in your browser.
 │   ├── index.html
 │   ├── style.css
 │   ├── script.js
+├── screenshots/
+│   ├── demo.gif
 ├── server.js
 ├── XYZ.sql
 ├── package-lock.json
