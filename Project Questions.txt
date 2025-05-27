@@ -1,0 +1,55 @@
+1) Can you think of 5 more rules (other than the one explicitly described above) that are likely to be used in a company.
+
+Each product must contain at least one part
+
+A company should not offer a product that has no components listed in ProductPart.
+
+Each vendor must supply at least one part
+
+To avoid having inactive or placeholder vendors.
+
+An employee cannot supervise themselves
+
+Prevents circular references: Employee.PersonID ≠ SupervisorID.
+
+Each customer must have a valid preferred sales representative
+
+Ensures strong relationship ties and data completeness (FK to Employee must not be NULL).
+
+A project must be assigned to a department
+
+Business projects must be tracked to a specific organizational unit for budgeting and accountability.
+
+2) Is the ability to model super-class/subclass relationships likely to be important in such an environment? Why or why not?
+
+Yes, subclass/superclass modeling is important in this environment.
+
+In a company database like this one:
+
+Person acts as a superclass, and
+Employee, Customer, and PotentialEmployee are subclasses with their own unique attributes and roles.
+
+This separation:
+
+Reduces redundancy (e.g., shared name/address/email is stored only once)
+Supports ISA relationships, which mirror real-life role distinctions within the same person entity
+Enables clean referential integrity across shared IDs while still maintaining semantic distinction (e.g., only Employees can receive salary)
+
+Without this modeling, you’d either:
+
+Duplicate personal info across tables (violating normalization), or
+Lose semantic clarity about person roles
+
+3) Justify using a Relational DBMS like Oracle for this project.
+
+A Relational DBMS like Oracle is highly justified for this project because:
+
+- Strong Schema Enforcement: Oracle supports complex constraints (e.g., composite keys, CHECKs, foreign keys), which are essential for enforcing real-world business rules.
+
+- Support for Views and Triggers: Oracle handles advanced features like BEFORE INSERT triggers (used for CEO logic), which allow for fine-grained business logic enforcement inside the DB.
+
+- Efficient Querying: Complex joins and aggregate queries (e.g., sales per product type, interviews per job) can be optimized using Oracle’s mature query planner and indexing system.
+
+- Data Integrity & Transactions: Multi-step operations like onboarding employees and processing interviews benefit from Oracle’s ACID-compliant transaction engine.
+
+- Scalability & Security: If this system were scaled for a real company, Oracle offers strong enterprise support, security controls, user management, and integration options with external systems.

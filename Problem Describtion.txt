@@ -1,0 +1,20 @@
+Problem Description
+XYZ Company is a mid-sized manufacturing firm that procures parts from a network of vendors to assemble and sell a variety of products. The company operates across multiple departments and marketing sites, and it manages a wide range of internal and external stakeholders including employees, customers, potential hires, and vendors.
+
+The objective of this project is to design and implement a fully normalized relational database system to support the company's business operations and enforce key integrity constraints. The system must manage personal data for all individuals (using an ISA hierarchy for Employees, Customers, and Potential Employees), track employee roles and departmental assignments over time, and store detailed job postings, applications, and interview results to support hiring workflows.
+
+Additionally, the system must record product specifications, sales data, and the breakdown of parts used in each product, including vendor pricing. Marketing sites must be tracked alongside the sales conducted at each location. Monthly salaries for employees must also be recorded, with appropriate reporting capabilities.
+
+This database solution will provide XYZ Company with the ability to:
+
+Manage employee supervision and department assignments over time.
+
+Facilitate the recruitment and interview process for both internal and external applicants.
+
+Track product composition and vendor-supplied part pricing.
+
+Record and analyze sales across various marketing sites.
+
+Enforce business rules such as allowing only one CEO and ensuring that all job applicants and vendors meet operational requirements.
+
+The database will be implemented using SQL, ensuring compliance with 3NF normalization, referential integrity, and business rule enforcement through triggers, views, and complex queries.

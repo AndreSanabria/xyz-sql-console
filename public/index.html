@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- CodeMirror -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SQL Query Console</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4 fancy-title">SQL Query Console 👋</h2>
+
+    <div class="mb-3">
+      <label for="presetQueries" class="form-label">Choose a query:</label>
+      <select class="form-select" id="presetQueries">
+        <option value="">-- Select a preset query --</option>
+
+        <!-- Person -->
+        <option disabled>── Person ──</option>
+        <option value="SELECT * FROM Person">View all people</option>
+        <option value="INSERT INTO Person (PersonID, FirstName, LastName, Age, Gender, Email, AddressLine1, City, State, ZipCode) VALUES (999, 'John', 'Doe', 30, 'M', 'john@example.com', '123 Main St', 'Dallas', 'TX', '75001')">Insert new person</option>
+        <option value="UPDATE Person SET Email='newemail@example.com' WHERE PersonID=999">Update person email</option>
+        <option value="DELETE FROM Person WHERE PersonID=999">Delete person</option>
+
+        <!-- PhoneNumber -->
+        <option disabled>── PhoneNumber ──</option>
+        <option value="SELECT * FROM PhoneNumber">View all phone numbers</option>
+        <option value="INSERT INTO PhoneNumber (PersonID, PhoneNumber, PhoneType) VALUES (999, '123-456-7890', 'Mobile')">Insert new phone number</option>
+        <option value="DELETE FROM PhoneNumber WHERE PersonID=999 AND PhoneNumber='123-456-7890'">Delete phone number</option>
+
+        <!-- Employee -->
+        <option disabled>── Employee ──</option>
+        <option value="SELECT * FROM Employee">View all employees</option>
+        <option value="INSERT INTO Employee (PersonID, ERank, Title, SupervisorID) VALUES (999, 'Junior', 'Developer', 1)">Insert new employee</option>
+        <option value="UPDATE Employee SET Title='Manager' WHERE PersonID=999">Update employee title</option>
+        <option value="DELETE FROM Employee WHERE PersonID=999">Delete employee</option>
+
+        <!-- Customer -->
+        <option disabled>── Customer ──</option>
+        <option value="SELECT * FROM Customer">View all customers</option>
+        <option value="INSERT INTO Customer (PersonID, PreferredSalesRepID) VALUES (999, 23)">Insert new customer</option>
+        <option value="UPDATE Customer SET PreferredSalesRepID=50 WHERE PersonID=999">Update sales rep</option>
+        <option value="DELETE FROM Customer WHERE PersonID=999">Delete customer</option>
+
+        <!-- PotentialEmployee -->
+        <option disabled>── PotentialEmployee ──</option>
+        <option value="SELECT * FROM PotentialEmployee">View all potential employees</option>
+        <option value="INSERT INTO PotentialEmployee (PersonID) VALUES (999)">Insert potential employee</option>
+        <option value="DELETE FROM PotentialEmployee WHERE PersonID=999">Delete potential employee</option>
+
+        <!-- Department -->
+        <option disabled>── Department ──</option>
+        <option value="SELECT * FROM Department">View all departments</option>
+        <option value="INSERT INTO Department (DepartmentID, DepartmentName) VALUES (10, 'Marketing')">Insert new department</option>
+        <option value="UPDATE Department SET DepartmentName='HR' WHERE DepartmentID=10">Update department name</option>
+        <option value="DELETE FROM Department WHERE DepartmentID=10">Delete department</option>
+
+        <!-- JobPosition -->
+        <option disabled>── JobPosition ──</option>
+        <option value="SELECT * FROM JobPosition">View all job positions</option>
+        <option value="INSERT INTO JobPosition (JobID, JobDescription, PostedDate, DepartmentID) VALUES (1000, 'Analyst', '2024-04-01', 10)">Insert job position</option>
+        <option value="DELETE FROM JobPosition WHERE JobID=1000">Delete job position</option>
+
+        <!-- Application -->
+        <option disabled>── Application ──</option>
+        <option value="SELECT * FROM Application">View all applications</option>
+        <option value="INSERT INTO Application (ApplicationID, JobID, ApplicantID, ApplicationDate) VALUES (2000, 1000, 999, '2024-04-02')">Insert application</option>
+        <option value="DELETE FROM Application WHERE ApplicationID=2000">Delete application</option>
+
+        <!-- Interview -->
+        <option disabled>── Interview ──</option>
+        <option value="SELECT * FROM Interview">View all interviews</option>
+        <option value="INSERT INTO Interview (InterviewID, JobID, InterviewTime) VALUES (3000, 1000, NOW())">Insert interview</option>
+        <option value="DELETE FROM Interview WHERE InterviewID=3000">Delete interview</option>
+
+        <!-- InterviewResult -->
+        <option disabled>── InterviewResult ──</option>
+        <option value="SELECT * FROM InterviewResult">View all interview results</option>
+        <option value="INSERT INTO InterviewResult (InterviewID, InterviewerID, IntervieweeID, Grade) VALUES (3000, 23, 999, 88.5)">Insert interview result</option>
+        <option value="DELETE FROM InterviewResult WHERE InterviewID=3000 AND InterviewerID=23 AND IntervieweeID=999">Delete interview result</option>
+
+        <!-- Product -->
+        <option disabled>── Product ──</option>
+        <option value="SELECT * FROM Product">View all products</option>
+        <option value="INSERT INTO Product (ProductID, ProductType, Size, ListPrice, Weight, Style) VALUES (123, 'Widget', 'Medium', 19.99, 2.5, 'Classic')">Insert new product</option>
+        <option value="UPDATE Product SET ListPrice=24.99 WHERE ProductID=123">Update product price</option>
+        <option value="DELETE FROM Product WHERE ProductID=123">Delete product</option>
+
+        <!-- PartType -->
+        <option disabled>── PartType ──</option>
+        <option value="SELECT * FROM PartType">View all part types</option>
+        <option value="INSERT INTO PartType (PartTypeID, PartName, Weight) VALUES (500, 'Screw', 0.1)">Insert part type</option>
+        <option value="DELETE FROM PartType WHERE PartTypeID=500">Delete part type</option>
+
+        <!-- Vendor -->
+        <option disabled>── Vendor ──</option>
+        <option value="SELECT * FROM Vendor">View all vendors</option>
+        <option value="INSERT INTO Vendor (VendorID, Name, Address, AccountNumber, CreditRating, PurchasingWebServiceURL) VALUES (800, 'BestVendor', '456 Supplier St', 'AC123', 5, 'http://vendor.com')">Insert vendor</option>
+        <option value="DELETE FROM Vendor WHERE VendorID=800">Delete vendor</option>
+
+        <!-- MarketingSite -->
+        <option disabled>── MarketingSite ──</option>
+        <option value="SELECT * FROM MarketingSite">View all marketing sites</option>
+        <option value="INSERT INTO MarketingSite (SiteID, SiteName, SiteLocation) VALUES (900, 'Site A', 'New York')">Insert marketing site</option>
+        <option value="DELETE FROM MarketingSite WHERE SiteID=900">Delete marketing site</option>
+
+        <!-- Sale -->
+        <option disabled>── Sale ──</option>
+        <option value="SELECT * FROM Sale">View all sales</option>
+        <option value="INSERT INTO Sale (SaleID, SalesmanID, CustomerID, ProductID, SaleTime, SiteID) VALUES (8888, 23, 1, 2, NOW(), 1)">Insert new sale</option>
+        <option value="UPDATE Sale SET SiteID=2 WHERE SaleID=8888">Update sale site</option>
+        <option value="DELETE FROM Sale WHERE SaleID=8888">Delete sale</option>
+
+        <!-- Salary -->
+        <option disabled>── Salary ──</option>
+        <option value="SELECT * FROM Salary">View all salaries</option>
+        <option value="INSERT INTO Salary (TransactionNumber, EmployeeID, PayDate, Amount) VALUES (4000, 999, '2024-04-05', 5000.00)">Insert salary</option>
+        <option value="DELETE FROM Salary WHERE TransactionNumber=4000 AND EmployeeID=999">Delete salary</option>
+
+        <!-- Project -->
+        <option disabled>── Project ──</option>
+        <option value="SELECT * FROM Project">View all projects</option>
+        <option value="INSERT INTO Project (ProjectID, ProjectName, DepartmentID, StartDate, EndDate) VALUES (100, 'AI Research', 10, '2024-01-01', '2024-12-31')">Insert project</option>
+        <option value="DELETE FROM Project WHERE ProjectID=100">Delete project</option>
+
+      </select>
+    </div>
+
+    <!-- M:N Tables Dropdown -->
+    <div class="mb-3">
+      <label for="mnQueries" class="form-label">Choose a M:N query:</label>
+      <select class="form-select" id="mnQueries">
+        <option value="">-- Select an M:N table query --</option>
+
+        <!-- EmployeeDepartmentHistory -->
+        <option disabled>── EmployeeDepartmentHistory ──</option>
+        <option value="SELECT * FROM EmployeeDepartmentHistory">View all department histories</option>
+        <option value="INSERT INTO EmployeeDepartmentHistory (HistoryID, EmployeeID, DepartmentID, StartTime, EndTime) VALUES (1, 999, 10, '2024-01-01', NULL)">Insert department history</option>
+        <option value="DELETE FROM EmployeeDepartmentHistory WHERE HistoryID=1">Delete department history</option>
+
+        <!-- ProductPart -->
+        <option disabled>── ProductPart ──</option>
+        <option value="SELECT * FROM ProductPart">View all product parts</option>
+        <option value="INSERT INTO ProductPart (ProductID, PartTypeID, QuantityUsed) VALUES (123, 500, 4)">Insert product part</option>
+        <option value="DELETE FROM ProductPart WHERE ProductID=123 AND PartTypeID=500">Delete product part</option>
+
+        <!-- VendorPart -->
+        <option disabled>── VendorPart ──</option>
+        <option value="SELECT * FROM VendorPart">View vendor parts</option>
+        <option value="INSERT INTO VendorPart (VendorID, PartTypeID, Price) VALUES (800, 500, 1.99)">Insert vendor part</option>
+        <option value="DELETE FROM VendorPart WHERE VendorID=800 AND PartTypeID=500">Delete vendor part</option>
+
+        <!-- SiteStaffing -->
+        <option disabled>── SiteStaffing ──</option>
+        <option value="SELECT * FROM SiteStaffing">View all site staffing</option>
+        <option value="INSERT INTO SiteStaffing (EmployeeID, SiteID) VALUES (999, 900)">Insert site staffing</option>
+        <option value="DELETE FROM SiteStaffing WHERE EmployeeID=999 AND SiteID=900">Delete site staffing</option>
+
+        <!-- ProjectStaff -->
+        <option disabled>── ProjectStaff ──</option>
+        <option value="SELECT * FROM ProjectStaff">View project staff</option>
+        <option value="INSERT INTO ProjectStaff (ProjectID, EmployeeID, Role) VALUES (100, 999, 'Lead Developer')">Insert project staff</option>
+        <option value="DELETE FROM ProjectStaff WHERE ProjectID=100 AND EmployeeID=999">Delete project staff</option>
+      </select>
+    </div>
+
+    <!-- View Dropdown -->
+    <div class="mb-3">
+      <label for="viewQueries" class="form-label">Choose a view query:</label>
+      <select class="form-select" id="viewQueries">
+        <option value="">-- Select a view query --</option>
+        <option value="SELECT * FROM View1_AvgMonthlySalary">View1: Avg Monthly Salary per Employee</option>
+        <option value="SELECT * FROM View2_InterviewPassCounts">View2: Passed Interview Rounds per Job</option>
+        <option value="SELECT * FROM View3_ProductsSoldByType">View3: Items Sold by Product Type</option>
+        <option value="SELECT * FROM View4_PartCostPerProduct">View4: Part Cost per Product</option>
+      </select>
+    </div>
+
+    <!-- Project Query Dropdown -->
+    <div class="mb-3">
+      <label for="projectQueries" class="form-label">Choose a project query:</label>
+      <select class="form-select" id="projectQueries">
+        <option value="">-- Select a project query --</option>
+        <option value="SELECT DISTINCT ir.InterviewerID, p.FirstName, p.LastName FROM InterviewResult ir JOIN Interview i ON ir.InterviewID = i.InterviewID JOIN Person p ON ir.InterviewerID = p.PersonID WHERE i.JobID = 11111 AND ir.IntervieweeID = (SELECT PersonID FROM Person WHERE FirstName = 'Hellen' AND LastName = 'Cole');">1. Interviewers for Hellen Cole (job 11111)</option>
+        <option value="SELECT j.JobID, j.JobDescription, j.PostedDate FROM JobPosition j JOIN Department d ON j.DepartmentID = d.DepartmentID WHERE d.DepartmentName = 'Marketing' AND MONTH(j.PostedDate) = 1 AND YEAR(j.PostedDate) = 2011;">2. Marketing Jobs (Jan 2011)</option>
+        <option value="SELECT e.PersonID, p.FirstName, p.LastName FROM Employee e JOIN Person p ON e.PersonID = p.PersonID WHERE e.PersonID NOT IN (SELECT DISTINCT SupervisorID FROM Employee WHERE SupervisorID IS NOT NULL);">3. Employees with no supervisees</option>
+        <option value="SELECT m.SiteID, m.SiteName FROM MarketingSite m WHERE m.SiteID NOT IN (SELECT s.SiteID FROM Sale s WHERE MONTH(s.SaleTime) = 3 AND YEAR(s.SaleTime) = 2011);">4. Sites with no sales (March 2011)</option>
+        <option value="SELECT j.JobID, j.JobDescription FROM JobPosition j WHERE j.JobID NOT IN (SELECT DISTINCT i.JobID FROM Interview i JOIN InterviewResult ir ON i.InterviewID = ir.InterviewID WHERE ir.Grade >= 3.5) AND DATEDIFF(CURDATE(), j.PostedDate) > 30;">5. Jobs with no hires</option>
+        <option value="SELECT s.SalesmanID FROM Sale s JOIN Product p ON s.ProductID = p.ProductID WHERE p.ListPrice > 200 GROUP BY s.SalesmanID HAVING COUNT(DISTINCT p.ProductType) = (SELECT COUNT(DISTINCT ProductType) FROM Product);">6. Salesmen of all product types > $200</option>
+        <option value="SELECT d.DepartmentID, d.DepartmentName FROM Department d WHERE d.DepartmentID NOT IN (SELECT j.DepartmentID FROM JobPosition j WHERE j.PostedDate BETWEEN '2011-01-01' AND '2011-02-01');">7. Departments with no jobs in Jan-Feb</option>
+        <option value="SELECT DISTINCT p.PersonID, p.FirstName, p.LastName FROM Application a JOIN Person p ON a.ApplicantID = p.PersonID WHERE a.JobID = 12345 AND a.ApplicantID IN (SELECT PersonID FROM Employee);">8. Employees who applied to job 12345</option>
+        <option value="SELECT p.ProductType, COUNT(s.SaleID) AS SalesCount FROM Sale s JOIN Product p ON s.ProductID = p.ProductID GROUP BY p.ProductType ORDER BY SalesCount DESC LIMIT 1;">9. Best-selling product type</option>
+        <option value="SELECT p.ProductType, ROUND(AVG(p.ListPrice - pc.TotalPartCost), 2) AS AvgNetProfit FROM Product p JOIN View4_PartCostPerProduct pc ON p.ProductID = pc.ProductID GROUP BY p.ProductType ORDER BY AvgNetProfit DESC LIMIT 1;">10. Highest net profit product type</option>
+        <option value="SELECT e.PersonID FROM Employee e JOIN EmployeeDepartmentHistory edh ON e.PersonID = edh.EmployeeID GROUP BY e.PersonID HAVING COUNT(DISTINCT edh.DepartmentID) = (SELECT COUNT(*) FROM Department);">11. Employees in all departments</option>
+        <option value="SELECT ir.IntervieweeID, ROUND(AVG(ir.Grade), 2) AS AvgGrade, COUNT(DISTINCT ir.InterviewID) AS InterviewCount FROM InterviewResult ir GROUP BY ir.IntervieweeID HAVING AvgGrade >= 3.5 AND InterviewCount >= 5;">12. Selected interviewees</option>
+        <option value="SELECT p.FirstName, p.LastName, p.Email, ph.PhoneNumber, a.JobID FROM Person p JOIN PhoneNumber ph ON p.PersonID = ph.PersonID JOIN Application a ON a.ApplicantID = p.PersonID WHERE p.PersonID IN (SELECT ir.IntervieweeID FROM InterviewResult ir GROUP BY ir.IntervieweeID HAVING AVG(ir.Grade) >= 3.5 AND COUNT(DISTINCT ir.InterviewID) >= 5);">13. Info of selected interviewees</option>
+        <option value="SELECT e.PersonID, p.FirstName, p.LastName, ROUND(AVG(s.Amount), 2) AS AvgSalary FROM Salary s JOIN Employee e ON s.EmployeeID = e.PersonID JOIN Person p ON e.PersonID = p.PersonID GROUP BY e.PersonID, p.FirstName, p.LastName ORDER BY AvgSalary DESC LIMIT 1;">14. Highest avg salary</option>
+        <option value="SELECT v.VendorID, v.Name, vp.Price FROM Vendor v JOIN VendorPart vp ON v.VendorID = vp.VendorID JOIN PartType pt ON vp.PartTypeID = pt.PartTypeID WHERE pt.PartName = 'Cup' AND pt.Weight < 4 ORDER BY vp.Price ASC LIMIT 1;">15. Cheapest Cup Vendor</option>
+      </select>
+    </div>
+    <!-- SQL Editor Box -->
+    <textarea id="sqlInput" class="form-control mb-3" rows="8" placeholder="Enter SQL here..."></textarea>
+    <button class="btn btn-primary mb-3" id="runBtn">Run Query</button>
+    <button class="btn btn-secondary mb-3 ms-2" id="randomizeBtn">Randomize</button>
+    <div id="errorMsg" class="text-danger mb-2"></div>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="resultTable">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
